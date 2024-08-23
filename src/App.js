@@ -20,7 +20,7 @@ function App() {
   }, []);
   return (
     <div>
-      <div className="gallery">
+      <div className="gallery ">
       <Items data = {data}/>
       </div>
     </div>
