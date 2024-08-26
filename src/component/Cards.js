@@ -2,14 +2,18 @@ import React from "react";
 import "../App.css";
 
 function Cards({ item }) {
-  console.log (item );
+  console.log(item.release_date);
 
   return (
     <div className="gallery-items">
-      <img className="item-images" src={`https://image.tmdb.org/t/p/w500/`+ item.backdrop_path } alt="poster" />
-      <div className="gallery-items-section">
-        <h4>{item.title}</h4>
-        <p>{item.overview}</p>
+      <img
+        className="item-images"
+        src={`https://image.tmdb.org/t/p/w500/` + item.backdrop_path}
+        alt="poster"
+      />
+      <div className="gallery-items-section ">
+        <h5>{item.title}</h5>
+        <h6>release: {item.release_date}</h6>
       </div>
     </div>
   );

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import Items from "./component/Items";
 import ObjectOfData from "./component/ObjectOfData";
+import NavBar from "./component/NavBar";
 
 function App() {
   const [data, setData] = useState({});
@@ -20,8 +21,11 @@ function App() {
   }, []);
   return (
     <div>
+      <div>
+      <NavBar />
+      </div>
       <div className="gallery ">
-      <Items data = {data}/>
+        <Items data={data} />
       </div>
     </div>
   );
