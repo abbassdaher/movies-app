@@ -6,6 +6,7 @@ import NavBar from "./component/NavBar";
 
 function App() {
   const [data, setData] = useState({});
+  const [filttrationData, setFilttrationData] = useState();
   // Fetch data when the component mounts and unmounts
   async function fetchData() {
     await fetch(
@@ -19,13 +20,22 @@ function App() {
     // fetch data
     fetchData();
   }, []);
+  // console.log(data);
+
+  const searchHandeler = (e) => {
+    const filltredMovie = data.results.filter((movie) =>
+      movie.title.toLowerCase().includes(e.target.value.toLowerCase())
+    );
+    if (filltredMovie) setFilttrationData(filltredMovie);
+  };
+
   return (
     <div>
       <div>
-      <NavBar />
+        <NavBar search={searchHandeler} />
       </div>
       <div className="gallery ">
-        <Items data={data} />
+        <Items data={data.results} filttrationData={filttrationData} />
       </div>
     </div>
   );

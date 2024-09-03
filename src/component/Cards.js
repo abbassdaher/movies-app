@@ -2,7 +2,6 @@ import React from "react";
 import "../App.css";
 
 function Cards({ item }) {
-  console.log(item.release_date);
 
   return (
     <div className="gallery-items">

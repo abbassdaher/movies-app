@@ -1,10 +1,15 @@
 import React from "react";
 
-function NavBar() {
+function NavBar({search}) {
   return (
-    <nav class=" navbar navbar-light bg-warning justify-content-center navbar-style ">
+    <nav className=" navbar navbar-light bg-warning justify-content-center navbar-style ">
       <form className="form-inline">
-        <input className="form-control" type="text" placeholder="Search" />
+        <input
+          className="form-control"
+          type="text"
+          placeholder="Search"
+          onChange={search}
+        />
       </form>
     </nav>
   );
