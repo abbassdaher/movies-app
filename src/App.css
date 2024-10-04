@@ -76,6 +76,12 @@
   height: 50px;
   text-align:center ;
 }
+.pagination-style{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

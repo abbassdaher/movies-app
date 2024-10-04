@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
+
 import "./App.css";
 import Items from "./component/Items";
 import ObjectOfData from "./component/ObjectOfData";
 import NavBar from "./component/NavBar";
+import axios from "axios";
+import PaginationComponent from "./component/PaginationComponent";
 
 function App() {
   const [data, setData] = useState({});
   const [filttrationData, setFilttrationData] = useState();
   // Fetch data when the component mounts and unmounts
-  async function fetchData() {
+  async function fetchData(page = 1, language = "en-US") {
     await fetch(
-      "https://api.themoviedb.org/3/movie/popular?api_key=5835097ab608205f211ea3c019e725a6&language=en-US&page=1"
+      `https://api.themoviedb.org/3/movie/popular?api_key=5835097ab608205f211ea3c019e725a6&language=${language}&page=${page}`
     )
       .then((response) => response.json())
       .then((data) => setData(data))
@@ -23,10 +26,28 @@ function App() {
   // console.log(data);
 
   const searchHandeler = (e) => {
-    const filltredMovie = data.results.filter((movie) =>
-      movie.title.toLowerCase().includes(e.target.value.toLowerCase())
-    );
-    if (filltredMovie) setFilttrationData(filltredMovie);
+    // search
+    // const filltredMovie = data.results.filter((movie) =>
+    //   movie.title.toLowerCase().includes(e.target.value.toLowerCase())
+    // );
+    // if (filltredMovie) setFilttrationData(filltredMovie);
+    // console.log(e.target.value);
+    search(e.target.value);
+  };
+  // search using API
+  const search = async (e) => {
+    if (e == "") {
+      fetchData();
+    } else {
+      const response = await axios.get(
+        `https://api.themoviedb.org/3/search/movie?query=${e}&api_key=5835097ab608205f211ea3c019e725a6`
+      );
+      setData(response.data);
+    }
+  };
+  const clickPaginationHandler = (e) => {
+    // fetchData(data.page + 1);
+    console.log(e.target.value);
   };
 
   return (
@@ -35,7 +56,10 @@ function App() {
         <NavBar search={searchHandeler} />
       </div>
       <div className="gallery ">
-        <Items data={data.results} filttrationData={filttrationData} />
+        <Items data={data.results} />
+      </div>
+      <div className="pagination-style">
+        <PaginationComponent clickPaginationHandler={(e)=>clickPaginationHandler} />
       </div>
     </div>
   );
