@@ -23,7 +23,7 @@ function App() {
     // fetch data
     fetchData();
   }, []);
-  // console.log(data);
+  console.log(data);
 
   const searchHandeler = (e) => {
     // search
@@ -47,7 +47,16 @@ function App() {
   };
   function clickPaginationHandler(e) {
     // fetchData(data.page + 1);
-    console.log(e.event.target.text);
+    // fetch the data with page number when clicked
+    
+    if(e="next"){
+      fetchData(data.page=data.page+1);
+      // console.log(data.page+1);
+
+    }
+    // fetchData(data.page=parseInt(e.event.target.text));
+    // console.log(e.event.target.text);
+    
   };
 
   return (
@@ -61,6 +70,7 @@ function App() {
       <div className="pagination-style">
         <PaginationComponent
           clickPaginationHandler={ clickPaginationHandler}
+          pageCount={data.total_pages}
         />
       </div>
     </div>

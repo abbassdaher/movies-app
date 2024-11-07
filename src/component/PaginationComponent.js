@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import ReactPaginate from "react-paginate";
 import Items from "./Items";
 
-function PaginationComponent({ clickPaginationHandler }) {
+function PaginationComponent({ clickPaginationHandler,pageCount }) {
   return (
     <Fragment>
       <ReactPaginate
@@ -12,10 +12,18 @@ function PaginationComponent({ clickPaginationHandler }) {
         nextLabel="next >"
         marginPagesDisplayed={2}
         pageRangeDisplayed={2}
-        pageCount={10}
+        pageCount={pageCount}
         previousLabel="< previous"
         renderOnZeroPageCount={null}
         onClick={(e) => clickPaginationHandler(e)}
+        containerClassName="pagination"
+        pageClassName="page-item"
+        pageLinkClassName="page-link"
+        activeClassName="active"
+        prevRel="page-item"
+        prevPageRel="page-link"
+
+
       />
     </Fragment>
   );
