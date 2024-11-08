@@ -20,9 +20,8 @@ function PaginationComponent({ clickPaginationHandler,pageCount }) {
         pageClassName="page-item"
         pageLinkClassName="page-link"
         activeClassName="active"
-        prevRel="page-item"
-        prevPageRel="page-link"
-
+        previousLinkClassName="page-link"
+        nextClassName="page-link"
 
       />
     </Fragment>

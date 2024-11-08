@@ -49,10 +49,16 @@ function App() {
     // fetchData(data.page + 1);
     // fetch the data with page number when clicked
     
-    if(e="next"){
+    if(e.event.target.text=="next >"){
       fetchData(data.page=data.page+1);
-      // console.log(data.page+1);
 
+    }else if(e.event.target.text=="< previous"){
+      fetchData(data.page=data.page-1);
+      // console.log(e.event.target.text);
+
+
+    }else{
+      fetchData(data.page=parseInt(e.event.target.text));
     }
     // fetchData(data.page=parseInt(e.event.target.text));
     // console.log(e.event.target.text);
