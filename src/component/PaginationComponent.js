@@ -5,26 +5,29 @@ import ReactPaginate from "react-paginate";
 import Items from "./Items";
 
 function PaginationComponent({ clickPaginationHandler,pageCount }) {
+  
   return (
-    <Fragment>
+    <div className="pagination-style">
       <ReactPaginate
         breakLabel="..."
+        onPageChange={clickPaginationHandler}
         nextLabel="next >"
         marginPagesDisplayed={2}
         pageRangeDisplayed={2}
         pageCount={pageCount}
         previousLabel="< previous"
         renderOnZeroPageCount={null}
-        onClick={(e) => clickPaginationHandler(e)}
+        // onClick={(e) => clickPaginationHandler(e)}
         containerClassName="pagination"
         pageClassName="page-item"
         pageLinkClassName="page-link"
         activeClassName="active"
         previousLinkClassName="page-link"
         nextClassName="page-link"
+        breakClassName="page-link"
 
       />
-    </Fragment>
+    </div>
   );
 }
 

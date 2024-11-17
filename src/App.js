@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 
 import "./App.css";
 import Items from "./component/Items";
-import ObjectOfData from "./component/ObjectOfData";
 import NavBar from "./component/NavBar";
 import axios from "axios";
 import PaginationComponent from "./component/PaginationComponent";
+import { BrowserRouter, Route, Router, Routes } from "react-router-dom";
+import ErroPage from "./component/ErroPage";
+import DescriptionMovie from "./component/DescriptionMovie";
 
 function App() {
   const [data, setData] = useState({});
@@ -46,39 +48,44 @@ function App() {
     }
   };
   function clickPaginationHandler(e) {
-    // fetchData(data.page + 1);
-    // fetch the data with page number when clicked
+    console.log(e.selected+1);
     
-    if(e.event.target.text=="next >"){
-      fetchData(data.page=data.page+1);
+    // // fetchData(data.page + 1);
+    // // fetch the data with page number when clicked
 
-    }else if(e.event.target.text=="< previous"){
-      fetchData(data.page=data.page-1);
-      // console.log(e.event.target.text);
-
-
-    }else{
-      fetchData(data.page=parseInt(e.event.target.text));
-    }
-    // fetchData(data.page=parseInt(e.event.target.text));
-    // console.log(e.event.target.text);
-    
-  };
+    // if (e.event.target.text == "next >") {
+    //   fetchData((data.page = data.page + 1));
+    // } else if (e.event.target.text == "< previous") {
+    //   fetchData((data.page = data.page - 1));
+    //   // console.log(e.event.target.text);
+    // } else {
+    //   fetchData((data.page = parseInt(e.event.target.text)));
+    // }
+    // // fetchData(data.page=parseInt(e.event.target.text));
+    // // console.log(e.event.target.text);
+  }
 
   return (
     <div>
       <div>
         <NavBar search={searchHandeler} />
       </div>
-      <div className="gallery ">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/gallery" element={<Items data={data} fetchData={fetchData} />} />
+          <Route path="/card"  />
+          <Route path="/descriptionMovie/:id" element={<DescriptionMovie />} />
+          <Route path="*" element={<ErroPage />} />
+        </Routes>
+      </BrowserRouter>
+
+      {/* <div className="gallery ">
         <Items data={data.results} />
-      </div>
-      <div className="pagination-style">
-        <PaginationComponent
-          clickPaginationHandler={ clickPaginationHandler}
-          pageCount={data.total_pages}
-        />
-      </div>
+      </div> */}
+      {/* <PaginationComponent
+        clickPaginationHandler={clickPaginationHandler}
+        pageCount={data.total_pages}
+      /> */}
     </div>
   );
 }
