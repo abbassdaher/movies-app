@@ -72,7 +72,7 @@ function App() {
       </div>
       <BrowserRouter>
         <Routes>
-          <Route path="/gallery" element={<Items data={data} fetchData={fetchData} />} />
+          <Route path="/" element={<Items data={data} fetchData={fetchData} />} />
           <Route path="/card"  />
           <Route path="/descriptionMovie/:id" element={<DescriptionMovie />} />
           <Route path="*" element={<ErroPage />} />

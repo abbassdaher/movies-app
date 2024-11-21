@@ -23,7 +23,7 @@ function Items({ data, filttrationData,fetchData }) {
       </Fragment>
     );
   } else if (data.results) {
-    console.log(data);
+    // console.log(data);
     
     return (
       <Fragment>

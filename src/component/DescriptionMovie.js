@@ -9,7 +9,9 @@ function DescriptionMovie() {
 
   async function getDescriptionOfFilm(parms) {
     await fetch(
-      `https://api.themoviedb.org/3/movie/${parms.id.slice(1)}?api_key=5835097ab608205f211ea3c019e725a6&append_to_response=videos,images`
+      `https://api.themoviedb.org/3/movie/${parms.id.slice(
+        1
+      )}?api_key=5835097ab608205f211ea3c019e725a6&append_to_response=videos,images`
     )
       .then((Response) => Response.json())
       .then((data) => {
@@ -33,19 +35,22 @@ function DescriptionMovie() {
       </div>
       <div class="card__content">
         <p class="card__title">{info.title}</p>
-        <p class="card__text">{info.tagline!==""?info.tagline:"no have description"} </p>
-        <p class="card__text">Rating: {info.vote_average
-!==""?info.vote_average
-:"no have description"} </p>
+        <p class="card__text">
+          {info.tagline !== "" ? info.tagline : "no have description"}{" "}
+        </p>
+        <p class="card__text">
+          Rating:{" "}
+          {info.vote_average !== "" ? info.vote_average : "no have description"}{" "}
+        </p>
 
-        <Link to="/gallery">
+        <Link to="/">
           <a class="card__button " href="#">
             back
           </a>
         </Link>
-        <a class="card__button " href="#">
-          See
-        </a>
+        <a class="card__button " href={info.homepage}>
+            watch
+          </a>
       </div>
     </div>
   );
