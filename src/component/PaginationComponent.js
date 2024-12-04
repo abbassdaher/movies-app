@@ -1,21 +1,33 @@
-import Pagination from "react-bootstrap/Pagination";
+import React, { useState } from "react";
+import { Fragment } from "react";
+import ReactDOM from "react-dom";
+import ReactPaginate from "react-paginate";
+import Items from "./Items";
 
-function PaginationComponent({ clickPaginationHandler }) {
+function PaginationComponent({ clickPaginationHandler,pageCount }) {
+  
   return (
-    <Pagination>
-      <Pagination.First />
-      <Pagination.Prev />
-      <Pagination.Item value={1} onClick={clickPaginationHandler}>1</Pagination.Item>
-      <Pagination.Item value={2}>{2}</Pagination.Item>
-      <Pagination.Ellipsis />
+    <div className="pagination-style">
+      <ReactPaginate
+        breakLabel="..."
+        onPageChange={clickPaginationHandler}
+        nextLabel="next >"
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={2}
+        pageCount={pageCount}
+        previousLabel="< previous"
+        renderOnZeroPageCount={null}
+        // onClick={(e) => clickPaginationHandler(e)}
+        containerClassName="pagination"
+        pageClassName="page-item"
+        pageLinkClassName="page-link"
+        activeClassName="active"
+        previousLinkClassName="page-link"
+        nextClassName="page-link"
+        breakClassName="page-link"
 
-      <Pagination.Item active value={20}>
-        {20}
-      </Pagination.Item>
-
-      <Pagination.Next onClick={clickPaginationHandler} />
-      <Pagination.Last />
-    </Pagination>
+      />
+    </div>
   );
 }
 
