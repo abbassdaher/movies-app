@@ -8,25 +8,29 @@ import PaginationComponent from "./component/PaginationComponent";
 import { BrowserRouter, Route, Router, Routes } from "react-router-dom";
 import ErroPage from "./component/ErroPage";
 import DescriptionMovie from "./component/DescriptionMovie";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllMoveis } from "./redux/actions/movieAction";
+import { type } from "@testing-library/user-event/dist/type";
+import { allMoveis } from "./redux/types/moviesType";
 
 function App() {
-  const [data, setData] = useState({});
   const [filttrationData, setFilttrationData] = useState();
-  // Fetch data when the component mounts and unmounts
-  async function fetchData(page = 1, language = "en-US") {
-    await fetch(
-      `https://api.themoviedb.org/3/movie/popular?api_key=5835097ab608205f211ea3c019e725a6&language=${language}&page=${page}`
-    )
-      .then((response) => response.json())
-      .then((data) => setData(data))
-      .catch((error) => console.error("Error:", error));
-  }
-  useEffect(() => {
-    // fetch data
-    fetchData();
-  }, []);
-  console.log(data);
 
+  // Fetch data when the component mounts and unmounts
+  // async function fetchData(page = 1, language = "en-US") {
+  //   await fetch(
+  //     `https://api.themoviedb.org/3/movie/popular?api_key=5835097ab608205f211ea3c019e725a6&language=${language}&page=${page}`
+  //   )
+  //     .then((response) => response.json())
+  //     .then((data) => setData(data))
+  //     .catch((error) => console.error("Error:", error));
+  // }
+
+
+
+  // useEffect(() => {
+  //   setData(dataMovies);
+  // }, [dataMovies]);
   const searchHandeler = (e) => {
     // search
     // const filltredMovie = data.results.filter((movie) =>
@@ -34,22 +38,12 @@ function App() {
     // );
     // if (filltredMovie) setFilttrationData(filltredMovie);
     // console.log(e.target.value);
-    search(e.target.value);
+    // search(e.target.value);
   };
-  // search using API
-  const search = async (e) => {
-    if (e == "") {
-      fetchData();
-    } else {
-      const response = await axios.get(
-        `https://api.themoviedb.org/3/search/movie?query=${e}&api_key=5835097ab608205f211ea3c019e725a6`
-      );
-      setData(response.data);
-    }
-  };
+  
   function clickPaginationHandler(e) {
-    console.log(e.selected+1);
-    
+    console.log(e.selected + 1);
+
     // // fetchData(data.page + 1);
     // // fetch the data with page number when clicked
 
@@ -68,24 +62,19 @@ function App() {
   return (
     <div>
       <div>
-        <NavBar search={searchHandeler} />
+        <NavBar  />
       </div>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Items data={data} fetchData={fetchData} />} />
-          <Route path="/card"  />
+          <Route
+            path="/"
+            element={<Items   />}
+          />
+          <Route path="/card" />
           <Route path="/descriptionMovie/:id" element={<DescriptionMovie />} />
           <Route path="*" element={<ErroPage />} />
         </Routes>
       </BrowserRouter>
-
-      {/* <div className="gallery ">
-        <Items data={data.results} />
-      </div> */}
-      {/* <PaginationComponent
-        clickPaginationHandler={clickPaginationHandler}
-        pageCount={data.total_pages}
-      /> */}
     </div>
   );
 }

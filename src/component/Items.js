@@ -1,13 +1,32 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import Cards from "./Cards";
 import "../App.css";
 import PaginationComponent from "./PaginationComponent";
+import { useSelector, useDispatch } from "react-redux";
+import { getAllMoveis } from "../redux/actions/movieAction";
 
-function Items({ data, filttrationData,fetchData }) {
+function Items({ filttrationData, fetchData }) {
+  const dispatch = useDispatch();
+  const [data, setData] = useState({});
+
   function clickPaginationHandler(e) {
-    console.log(e.selected+1);
-      fetchData((data.page = e.selected+1));
+    // console.log(e.selected + 1);
+    // fetchData((data.page = e.selected + 1));
+    dispatch(getAllMoveis((dataMovies.page = e.selected + 1)));
+    setData(dataMovies);
   }
+  useEffect(() => {
+    // fetch data
+    // fetchData();
+    dispatch(getAllMoveis());
+  }, [getAllMoveis]);
+  const dataMovies = useSelector((state) => state.movies);
+  useEffect(() => {
+    setData(dataMovies);
+  }, [dataMovies]);
+
+  console.log(data);
+
   if (filttrationData) {
     return (
       <Fragment>
@@ -24,7 +43,7 @@ function Items({ data, filttrationData,fetchData }) {
     );
   } else if (data.results) {
     // console.log(data);
-    
+
     return (
       <Fragment>
         <div className="gallery">
@@ -34,7 +53,7 @@ function Items({ data, filttrationData,fetchData }) {
         </div>
         <PaginationComponent
           clickPaginationHandler={clickPaginationHandler}
-          pageCount={data.total_pages}
+          pageCount={dataMovies.total_pages}
         />
       </Fragment>
     );
