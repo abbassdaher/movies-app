@@ -1,5 +1,5 @@
 import axios from "axios";
-import { allMoveis, filltredMovies } from "../types/moviesType";
+import { allMoveis, filltredMovies, getpage } from "../types/moviesType";
 
 export const getAllMoveis = (page = 1, language = "en-US") => {
   return async (dispatch) => {
@@ -22,3 +22,14 @@ export const getMoveis = (word) => {
     dispatch({ type: allMoveis, data: response.data });
   };
 };
+
+export const getPage = (page) => {
+    return async (dispatch) => {
+      const response = await axios.get(
+        `https://api.themoviedb.org/3/movie/popular?api_key=5835097ab608205f211ea3c019e725a6&
+              language="en-US"&page=${page}`
+      );
+      dispatch({ type: allMoveis, data: response.data });
+      console.log(page)
+    };
+  };

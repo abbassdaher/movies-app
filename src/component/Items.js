@@ -3,58 +3,44 @@ import Cards from "./Cards";
 import "../App.css";
 import PaginationComponent from "./PaginationComponent";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllMoveis } from "../redux/actions/movieAction";
+import { getAllMoveis, getPage } from "../redux/actions/movieAction";
 
-function Items({ filttrationData, fetchData }) {
+function Items() {
   const dispatch = useDispatch();
-  const [data, setData] = useState({});
+  const dataMovies = useSelector((state) => state.movies);
+  const newData = useSelector((state) => state.newData);
 
-  function clickPaginationHandler(e) {
-    // console.log(e.selected + 1);
-    // fetchData((data.page = e.selected + 1));
-    dispatch(getAllMoveis((dataMovies.page = e.selected + 1)));
-    setData(dataMovies);
-  }
   useEffect(() => {
     // fetch data
-    // fetchData();
     dispatch(getAllMoveis());
-  }, [getAllMoveis]);
-  const dataMovies = useSelector((state) => state.movies);
-  useEffect(() => {
-    setData(dataMovies);
-  }, [dataMovies]);
+  }, [getAllMoveis]); 
 
-  console.log(data);
-
-  if (filttrationData) {
-    return (
-      <Fragment>
-        <div className="gallery">
-          {filttrationData.map((item) => (
-            <Cards key={item.id} item={item} />
-          ))}
-        </div>
-        <PaginationComponent
-          clickPaginationHandler={clickPaginationHandler}
-          pageCount={filttrationData.total_pages}
-        />
-      </Fragment>
-    );
-  } else if (data.results) {
-    // console.log(data);
+  // if (filttrationData) {
+  //   return (
+  //     <Fragment>
+  //       <div className="gallery">
+  //         {filttrationData.map((item) => (
+  //           <Cards key={item.id} item={item} />
+  //         ))}
+  //       </div>
+  //       <PaginationComponent
+  //         clickPaginationHandler={clickPaginationHandler}
+  //         pageCount={filttrationData.total_pages}
+  //       />
+  //     </Fragment>
+  //   );
+  // } else
+  if (dataMovies.results) {
+    // console.log(dataMovies);
 
     return (
       <Fragment>
         <div className="gallery">
-          {data.results.map((item) => (
+          {dataMovies.results.map((item) => (
             <Cards key={item.id} item={item} />
           ))}
         </div>
-        <PaginationComponent
-          clickPaginationHandler={clickPaginationHandler}
-          pageCount={dataMovies.total_pages}
-        />
+        <PaginationComponent/>
       </Fragment>
     );
   }
